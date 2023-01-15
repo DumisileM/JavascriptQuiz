@@ -3,6 +3,9 @@ var timeRemaining = 30;
 var startButton = document.querySelector("#start");
 var questionsDiv = document.querySelector("#questions");
 var startScreen = document.querySelector("#start-screen");
+timeElement.textContent = timeRemaining;
+
+
 
 
 //A start button that when clicked a timer starts and the first question appears.
@@ -29,11 +32,7 @@ function startTimer(){
     
     timer= setInterval(function(){
         timeRemaining--;
-        timeElement.textContent = timeRemaining
-
-      
-        
-
+        timeElement.textContent = timeRemaining;
         if (timeRemaining === 0) {
             // Clears interval
             clearInterval(timer)

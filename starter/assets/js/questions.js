@@ -1,42 +1,116 @@
 var questionTitle = document.querySelector("#question-title");
 var answerChoices = document.querySelector("#choices");
+var timeElement = document.querySelector("#time");
+var questions= localStorage.getItem("questionSet");
 
-function renderQuestions(question, choices){
-    questionTitle.textContent = question;
+
+
+
+
+function renderQuestions(question){
+    
     var choiceList = document.createElement("ul"); 
-    answerChoices.appendChild(choiceList)                               
-  
-
-    var li = document.createElement("li")
-    for(let i = 0; 0 < choices.length; i++){
-        li.textContent =choices[i]
-        choiceList.appendChild(li)
-
+    answerChoices.appendChild(choiceList)    
+    for(let i=0; i < Object.keys(question).length;i++){
+        var currQuestionIdx = Object.keys(question)[i]
+        var choices = question[currQuestionIdx].answers
+       
+        questionTitle.textContent = question[currQuestionIdx]['question'];
+        for(let j=0; j< choices.length;j++){
+            var button = document.createElement("button")
+            button.setAttribute("type","button")
+            button.setAttribute("id","choice-button")
+            choiceList.appendChild(button);
+            button.textContent= choices[j]
+        }
     }
-    choiceList.appendChild(li);
-    
-    // var buttonItem = document.createElement("button");
-    // li.appendChild(buttonItem)
-    // buttonItem.textContent =choices[i];
-        
-
-        
-    
-        
-
-
-   
-
 };
+
+// function getResult(){
+//     var win;
+//     var lose;
+//     var score = timeElement
+
+//     var choices = document.getElementById("choice-button")
+//     choices.addEventListener("click",function(event){
+//         var element = event.target
+//         var userChoice = element
+//         if(userChoice !=)
+        
+
+//     })
+    
+
+// }
+
+function renderQuestions(questionSet,idx){
+    
+    var choiceList = document.createElement("ul"); 
+    answerChoices.appendChild(choiceList)    
+   
+    var currQuestionIdx = Object.keys(questionSet)[idx]
+    var choices = questionSet[currQuestionIdx].answers
+    
+    questionTitle.textContent = questionSet[currQuestionIdx]['question'];
+    for(let j=0; j< choices.length;j++){
+        var button = document.createElement("button")
+        button.setAttribute("type","button")
+        button.setAttribute("id","choice-button")
+        choiceList.appendChild(button);
+        button.textContent= choices[j]
+    }
+    
+};
+
+
 function questionSet(){
    var questionSet = {
-    question: "What is your name",
+    questionOne: {
+    question: "What is your name?",
     answers: ["Sanele","Phe","Thulile"],
     correct: "Sanele"
+   },questionTwo: {
+    question: "where do you live?",
+    answers: ["London","Joburg","Thailand"],
+    correct: "Joburg"
+   },questionThree: {
+    question: "Your age?",
+    answers: [20,21,26],
+    correct: 20
+   },questionFour: {
+    question: "School?",
+    answers: ["None","Kenville","CTK"],
+    correct: "CTK"
+   },questionFive: {
+    question: "The day today?",
+    answers: ["Monday","Tuesday","Saturday"],
+    correct: "Saturday"
    }
-   console.log(questionSet.question)
+
+}
+  
+   console.log(questionSet)
    return questionSet
 
 }
-var questionsAnswers = questionSet()
-renderQuestions(questionsAnswers.question,questionsAnswers.answers)
+function parseObject(){
+    var obj = questionSet()
+    localStorage.setItem("questionSet",JSON.stringify(obj));
+    var finObj = JSON.parse(localStorage.getItem("questionSet"));
+    return finObj
+}
+var questionSet = parseObject()
+function playQuiz(){
+    //set win
+    //set loses
+    //set score
+    //check user choice i.e. event listener on li button
+    //if it matches the correct answer at at current index, do nothing, if it doesn't minus 
+    //10 seconds from time remaining
+    //if time runs out then add 1 to loses
+    //if they finish question set add 1 to win 
+    //score is equal to the total of remaining time user had on each question
+renderQuestions(questionSet,an index)
+
+
+}
