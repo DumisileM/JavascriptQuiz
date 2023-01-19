@@ -1,8 +1,10 @@
 var timeElement = document.querySelector("#time");
-var timeRemaining = 30;
 var startButton = document.querySelector("#start");
 var questionsDiv = document.querySelector("#questions");
 var startScreen = document.querySelector("#start-screen");
+var timeRemaining = 30;
+var score;
+
 timeElement.textContent = timeRemaining;
 
 
@@ -41,8 +43,91 @@ function startTimer(){
 
 
 };
+function playQuiz(){
+    questionsDiv.removeAttribute("class");
+    var score =0 
+    var answerFeedback = document.createElement("p");
+    questionsDiv.appendChild(answerFeedback);
+    var questionSet = getQuestionSet();
+    var questionBankKeys = Object.keys(questionSet);
+    var i = 0;
+    
+
+    while(true){
+        if(i == questionBankKeys.length){
+            break;
+        };
+        renderQuestions(questionSet,i);
+        
+        
+        
+        var correct = questionSet[questionBankKeys[i]]['correct']
+        
+        console.log(correct)
+        i++
+        
+        
+        var choiceButton = document.querySelectorAll('#choice-button');
+        
+        for(let j=0; j < choiceButton.length;j++){
+            
+            choiceButton[j].addEventListener("click",function(event){
+              
+                var target= event.target;
+                if(target.matches("button")&&choiceButton[j].dataset.index !=j){
+                    console.log('yes')
+                }
+                if(target.textContent == correct){
+                    answerFeedback.textContent = "Correct!";
+                    // score += timeElement.textContent;
+                }else{
+                    answerFeedback.textContent = "Wrong!";
+                    // timeRemaining - 10;
+                }
+
+                    
+        })
+      
+        
+
+
+        }
+    }
+    
+    // for (let i=0; i < questionBankKeys.length;){
+    //     renderQuestions(questionSet,i);
+    //     var correct = questionSet[questionBankKeys[i]]['correct']
+    //     console.log(correct)
+        
+        
+    //     var choiceButton = document.querySelectorAll('#choice-button');
+        
+    //     for(let j=0; j < choiceButton.length;j++){
+         
+    //         choiceButton[j].addEventListener("click",function(event){
+    //             i++
+    //             var target= event.target;
+    //             console.log(target.textContent)
+    //             if(target.textContent == correct){
+    //                 answerFeedback.textContent = "Correct!";
+    //                 score += timeElement.textContent;
+    //             }else{
+    //                 answerFeedback.textContent = "Wrong!";
+    //                 timeRemaining - 10;
+    //             }
+
+                 
+    //     })
+        
+
+
+    //     }
+  
+    // }
+}
 
 // event listener for start button. when btn is clicked. render the question screen
+
 
 startButton.addEventListener("click",function(event){
     var element = event.target
@@ -50,7 +135,7 @@ startButton.addEventListener("click",function(event){
     if (element.matches("button")== true){
         startScreen.setAttribute("class","hide")
         startTimer();
-        questionsDiv.removeAttribute("class");
+        playQuiz();
         
     };
 });

@@ -1,30 +1,30 @@
 var questionTitle = document.querySelector("#question-title");
 var answerChoices = document.querySelector("#choices");
 var timeElement = document.querySelector("#time");
-var questions= localStorage.getItem("questionSet");
 
 
 
 
 
-function renderQuestions(question){
+
+// function renderQuestions(question){
     
-    var choiceList = document.createElement("ul"); 
-    answerChoices.appendChild(choiceList)    
-    for(let i=0; i < Object.keys(question).length;i++){
-        var currQuestionIdx = Object.keys(question)[i]
-        var choices = question[currQuestionIdx].answers
+//     var choiceList = document.createElement("ul"); 
+//     answerChoices.appendChild(choiceList)    
+//     for(let i=0; i < Object.keys(question).length;i++){
+//         var currQuestionIdx = Object.keys(question)[i]
+//         var choices = question[currQuestionIdx].answers
        
-        questionTitle.textContent = question[currQuestionIdx]['question'];
-        for(let j=0; j< choices.length;j++){
-            var button = document.createElement("button")
-            button.setAttribute("type","button")
-            button.setAttribute("id","choice-button")
-            choiceList.appendChild(button);
-            button.textContent= choices[j]
-        }
-    }
-};
+//         questionTitle.textContent = question[currQuestionIdx]['question'];
+//         for(let j=0; j< choices.length;j++){
+//             var button = document.createElement("button")
+//             button.setAttribute("type","button")
+//             button.setAttribute("id","choice-button")
+//             choiceList.appendChild(button);
+//             button.textContent= choices[j]
+//         }
+//     }
+// };
 
 // function getResult(){
 //     var win;
@@ -49,12 +49,14 @@ function renderQuestions(questionSet,idx){
     answerChoices.appendChild(choiceList)    
    
     var currQuestionIdx = Object.keys(questionSet)[idx]
-    var choices = questionSet[currQuestionIdx].answers
+    var choices = questionSet[currQuestionIdx]['answers']
+    
     
     questionTitle.textContent = questionSet[currQuestionIdx]['question'];
     for(let j=0; j< choices.length;j++){
         var button = document.createElement("button")
         button.setAttribute("type","button")
+        button.setAttribute("data-index",j)
         button.setAttribute("id","choice-button")
         choiceList.appendChild(button);
         button.textContent= choices[j]
@@ -63,7 +65,7 @@ function renderQuestions(questionSet,idx){
 };
 
 
-function questionSet(){
+function getQuestionSet(){
    var questionSet = {
     questionOne: {
     question: "What is your name?",
@@ -89,28 +91,28 @@ function questionSet(){
 
 }
   
-   console.log(questionSet)
    return questionSet
 
 }
-function parseObject(){
-    var obj = questionSet()
-    localStorage.setItem("questionSet",JSON.stringify(obj));
-    var finObj = JSON.parse(localStorage.getItem("questionSet"));
-    return finObj
-}
-var questionSet = parseObject()
-function playQuiz(){
-    //set win
-    //set loses
-    //set score
-    //check user choice i.e. event listener on li button
-    //if it matches the correct answer at at current index, do nothing, if it doesn't minus 
-    //10 seconds from time remaining
-    //if time runs out then add 1 to loses
-    //if they finish question set add 1 to win 
-    //score is equal to the total of remaining time user had on each question
-renderQuestions(questionSet,an index)
 
 
-}
+
+// function playQuiz(){
+//     //set win
+//     //set loses
+//     //set score
+//     //check user choice i.e. event listener on li button
+//     //if it matches the correct answer at at current index, do nothing, if it doesn't minus 
+//     //10 seconds from time remaining
+//     //if time runs out then add 1 to loses
+//     //if they finish question set add 1 to win 
+//     //score is equal to the total of remaining time user had on each question
+//     questions = localStorage.getItem('questionSet')
+//     for(i=0; i < questions.length;){
+//         renderQuestions(questionSet,i)
+
+//     }
+
+
+
+// }
